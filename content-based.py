@@ -21,7 +21,7 @@ cursor=conn.cursor()
 user_id = "0000"
 
 # 依照 user line 編號撈資料
-sql_query = """ select 餐廳名稱, rating from userid_history where user_id = {user_id}; """.format(user_id=user_id)
+sql_query = """ select 餐廳名稱, rating from user_id_history where user_id = {user_id}; """.format(user_id=user_id)
 cursor.execute(sql_query)
 results = cursor.fetchall()
 Lawrence_ratings = []
@@ -70,7 +70,7 @@ for i in recomm.values.tolist():
 results = tuple(temp)
 
 # 將查詢結果存入 MySQL
-sql_insert = """ insert into userid_history values (%s, %s, %s, %s, %s); """
+sql_insert = """ insert into user_id_history values (%s, %s, %s, %s, %s); """
 rating = Lawrence_dict['rating']
 values = [(user_id,) + (rating,) + t for t in results]
 cursor.executemany(sql_insert, values)
